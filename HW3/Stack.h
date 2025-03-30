@@ -1,3 +1,6 @@
+#ifndef STACK_H
+#define STACK_H
+
 #include <iostream>
 using namespace std;
 
@@ -8,50 +11,53 @@ struct Node
 	Node<N>* next;
 };
 
-template <class S>
+template <class N>
 class Stack
 {
+	Node<N>* ptr;
+
 public:
-	Node<S>* ptr;
-	Stack() 
+	Stack()
 	{
 		ptr = nullptr;
-	}
-	void push(S);
+	};
+
+	void push(N);
 	void pop();
-	bool isEmpty();
+	bool isEmpty() const;
 	void makeEmpty();
-	void peek();
-	void print();
+	void peek() const;
+	void print() const;
 };
 
-template <class S>
-void Stack<S>::push(S value)
+template <class N>
+void Stack<N>::push(N value)
 {
-	Node<S>* temp = new Node<S>;
+	Node<N>* temp = new Node<N>;
 	temp->info = value;
 	temp->next = ptr;
 	ptr = temp;
 }
 
-template <class S>
-void Stack<S>::pop()
+template <class N>
+void Stack<N>::pop()
 {
 	if (!ptr)
 	{
 		cout << "Stack is empty\n";
-		return;
+			return;
 	}
 	else
 	{
-		Node<S>* temp = ptr;
+		Node<N>* temp = ptr;
 		ptr = ptr->next;
+		cout << "Removed follower: " << temp->info << endl;
 		delete temp;
 	}
 }
 
-template <class S>
-bool Stack<S>::isEmpty()
+template <class N>
+bool Stack<N>::isEmpty() const
 {
 	if (!ptr)
 	{
@@ -74,8 +80,8 @@ void Stack<S>::makeEmpty()
 	}
 }
 
-template <class S>
-void Stack<S>::peek()
+template <class N>
+void Stack<N>::peek() const
 {
 	if (!ptr)
 	{
@@ -87,8 +93,8 @@ void Stack<S>::peek()
 	}
 }
 
-template <class S>
-void Stack<S>::print()
+template <class N>
+void Stack<N>::print() const
 {
 	if (!ptr) 
 	{
@@ -97,14 +103,14 @@ void Stack<S>::print()
 	}
 	else 
 	{
-		Node<S>* temp = ptr;
+		Node<N>* temp = ptr;
 		while (temp)
 		{
-			cout << temp->info << " -> ";
+			cout << temp->info << " -> " << "\n";
 			temp = temp->next;
 		}
 		cout << "NULL" << endl;
 	}
-
 	
 }
+#endif

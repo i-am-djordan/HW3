@@ -1,3 +1,5 @@
+#ifndef INSTAGRAM_H
+#define INSTAGRAM_H
 #include <iostream>
 #include "Stack.h"
 using namespace std;
@@ -5,39 +7,45 @@ using namespace std;
 template <class I>
 class Instagram
 {
-public:
-	int numoffollowers = 0;
-	I user;
-	Stack<I> followerlist;
 
-	void addFollower(I follower);
+public:
+	int numoffollowers;
+	string InstaUser;
+	Stack<string> followerlist;
+
+	Instagram(string user) : InstaUser(user), numoffollowers(0) {}
+
+	void addFollower(string follower);
 	void removeFollower();
-	const void printFollowers();
-	void latestFollower();
+	void printFollowers() const;
+	void latestFollower() const;
 	void resetFollowers();
-	void checklist();
+	void checklist() const;
 };
 
 template <class I>
-void Instagram<I>::addFollower(I follower)
+void Instagram<I>::addFollower(string follower)
 {
 	followerlist.push(follower);
+	numoffollowers++;
+
 }
 
 template <class I>
 void Instagram<I>::removeFollower()
 {
 	followerlist.pop();
+	numoffollowers--;
 }
 
 template <class I>
-const void Instagram<I>::printFollowers()
+void Instagram<I>::printFollowers() const
 {
 	followerlist.print();
 }
 
 template <class I>
-void Instagram<I>::latestFollower()
+void Instagram<I>::latestFollower() const
 {
 	followerlist.peek();
 }
@@ -49,7 +57,15 @@ void Instagram<I>::resetFollowers()
 }
 
 template <class I>
-void Instagram<I>::checklist()
+void Instagram<I>::checklist() const
 {
-	followerlist.isEmpty();
+	if (followerlist.isEmpty() == true)
+	{
+		cout << "The followers list is empty\n";
+	}
+	else
+	{
+		cout << "The followers list is not empty\n";
+	}
 }
+#endif 
